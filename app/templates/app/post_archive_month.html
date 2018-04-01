@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<h1>{{ month | date:"Y年m月"}}の全ての記事</h1>
+{% if previous_month %}
+  <a href="{% url 'app:post_month_archive' previous_month.year previous_month.month  %}">
+    前月
+  </a>
+{% endif %}
+{% if next_month %}
+  <a href="{% url 'app:post_month_archive' next_month.year next_month.month  %}">
+    次月
+  </a>
+{% endif %}
+<hr>
+  
+{% for dt in date_list %}
+  <h2>
+    <a href="{% url 'app:post_day_archive' dt.year dt.month dt.day %}">
+      {{ dt.day }}日へ
+    </a>
+  </h2>
+{% endfor %}
+<hr>
+
+{% for post in object_list %}
+  <p>{{ post.pub_date }},{{ post.title }}</p>
+{% endfor %}
+<hr>
+
+{% endblock %}
+

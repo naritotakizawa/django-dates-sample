@@ -1,0 +1,32 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<h1>{{ week | date:"Y年W週"}}の全ての記事</h1>
+{% if previous_week %}
+  {% with week_number=previous_week|date:'W' %}
+    <a href="{% url 'app:post_week_archive' previous_week.year week_number  %}">
+      前週
+    </a>
+  {% endwith %}
+{% endif %}
+
+{% if next_week %}
+  {% with week_number=next_week|date:'W' %}
+    <a href="{% url 'app:post_week_archive' next_week.year week_number  %}">
+      次週
+    </a>
+  {% endwith %}
+{% endif %}
+<hr>
+
+{% for post in object_list %}
+  <p>
+    <a href="{% url 'app:post_day_detail' post.pub_date.year post.pub_date.month post.pub_date.day  post.pk %}">{{ post.title }}</a>
+  </p>
+{% endfor %}
+<hr>
+
+{% endblock %}
+
+

@@ -1,0 +1,26 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<h1>全ての記事</h1>
+<hr>
+  
+<!-- 記事がある、全ての年が表示される -->
+{% for dt in date_list %}
+  <h2>
+    <a href="{% url 'app:post_year_archive' dt.year %}">
+      {{ dt.year }}年へ
+    </a>
+  </h2>
+{% endfor %}
+<hr>
+
+<!-- 新しい順に、全ての記事を表示 -->
+{% for post in latest %}
+  <p>{{ post.pub_date }},{{ post.title }}</p>
+{% endfor %}
+<hr>
+
+<a href="{% url 'app:post_today_archive' %}">今日のデータ</a>
+
+{% endblock %}

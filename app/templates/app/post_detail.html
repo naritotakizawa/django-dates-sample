@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<h1>{{ post.title }}</h1>
+<p>
+  {% with year=post.pub_date.year month=post.pub_date.month day=post.pub_date.day week_number=post.pub_date|date:'W' %}
+    <a href="{% url 'app:post_year_archive' year %}">{{ year }}</a>年
+    <a href="{% url 'app:post_month_archive' year month %}">{{ month }}</a>月
+    <a href="{% url 'app:post_day_archive' year month  day %}">{{ day }}</a>日(
+    <a href="{% url 'app:post_week_archive' year week_number  %}">{{ week_number }}</a>週)
+  {% endwith %}
+</p>
+<p><a href="{% url 'app:post_archive'%}">全てのデータ一覧へ</a></p>
+{% endblock %}
+
+
+
